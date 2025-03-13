@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Map App Demo</title>
+    <meta charset="utf-8" /> 
+    <style>
+       html,
+      body {
+        height:95%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 850px;
+      }
+    </style>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body>
+    <h2 style="text-align:center">Google Map App Demo</h2>
+    <div class="container" id="container">
+      <div class="main">
+        <div id="map">
+        </div>
+      </div>    
+    </div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?v=beta&loading=async&libraries=geometry&key=AIzaSyBk1Yit-fdfbbESp-xA-JWmkL06IwurcvU&callback=initMap"></script>
+  </body>
+</html>
