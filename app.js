@@ -1,4 +1,4 @@
-let apiKey = 'AIzaSyBk1Yit-fdfbbESp-xA-JWmkL06IwurcvU';
+let gmk = 'AIzaSyAIgHFrIHvqc0ay7boHg1ttTnVmEvawrR4';
 var map;
 var infoWindow;
 async function initMap() {
@@ -9,7 +9,6 @@ async function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 7,
     center: { lat: 51.9194, lng: 19.1451 }, //Polska środek
-    // center: { lat: 52.23743, lng: 21.029156996643792 }, // Wawa
     mapId: "DEMO_MAP_ID",
   });
 
@@ -46,27 +45,12 @@ async function getRouteWithTollInfo(origin, destination) {
       avoidHighways: false,
       avoidFerries: false
       },
-      // waypoints: [
-      //   {"location": "A1, Poland"},
-        
-      // ],
       intermediates: [
         {
           address:"Gdańsk,Polska",
           address:"Włocławek,Polska",
           address:"Linz,AT",
         },
-        // {
-
-        //   location: { 
-        //     latLng: { 
-        //       latitude: 47.06911326, 
-        //       longitude: 15.437825 
-        //     } 
-        //   }, 
-          
-        //   // address:"Graz,AT",// Graz
-        // }
       ],
       languageCode: "pl",
       units: "METRIC",
@@ -76,8 +60,7 @@ async function getRouteWithTollInfo(origin, destination) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-Goog-Api-Key": apiKey,
-        // "X-Goog-FieldMask": "*,routes,routes.legs,routes.travelAdvisory,routes.travelAdvisory.tollInfo,routes.travelAdvisory.tollInfo.estimatedPrice,routes.legs.travelAdvisory,routes.legs.travelAdvisory.tollInfo,routes.legs.travelAdvisory.tollInfo.estimatedPrice,routes.legs.travelAdvisory.speedReadingIntervals,routes.legs.steps.travelAdvisory,routes.legs.steps.travelAdvisory.speedReadingIntervals"
+        "X-Goog-Api-Key": gmk,
         "X-Goog-FieldMask": "routes,routes.legs,routes.travelAdvisory,routes.travelAdvisory.tollInfo,routes.travelAdvisory.tollInfo.estimatedPrice,routes.legs.travelAdvisory,routes.legs.travelAdvisory.tollInfo,routes.legs.travelAdvisory.tollInfo.estimatedPrice,routes.legs.travelAdvisory.speedReadingIntervals,routes.legs.steps.travelAdvisory,routes.legs.steps.travelAdvisory.speedReadingIntervals"
       },
       body: JSON.stringify(requestBody)
@@ -90,14 +73,6 @@ async function getRouteWithTollInfo(origin, destination) {
   
   const data = await response.json();
   console.log(data);
-  // console.log('TravelAdvisory: ', data.routes[0].travelAdvisory)
-  // data.routes[0].legs.forEach((leg, legIndex) => {
-    // console.log(`Travel Advisory at Leg ${legIndex}:`, leg.travelAdvisory.tollInfo.nano + " " + leg.travelAdvisory.tollInfo.currencyCode );
-
-    // leg.steps.forEach((step, stepIndex) => {
-      // console.log(`Travel Advisory at Step ${stepIndex}:`, step.travelAdvisory);
-    // });
-  // });
   drawRouteOnMap(data.routes[0].legs);
 }
 
@@ -145,25 +120,4 @@ function addMarker(lat, lng, title){
     infoWindow.open(map, marker);
   });
 
-}
-
-  async function fetchUrl(url) {
-    // Make a GET request
-    return await fetch(url, { mode: 'no-cors'})
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        // console.log(data);
-        return data;
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  }
-  
-  
-  
+}  
